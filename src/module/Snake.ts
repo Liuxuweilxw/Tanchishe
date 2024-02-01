@@ -30,16 +30,13 @@ class Snake{
             if(val==(this.bodies[1] as HTMLElement).offsetLeft){
                 throw new Error('🐍 掉头了');
             }
-            for(let i = this.bodies.length-2;i>0;i--){
-                if((this.bodies[i] as HTMLElement).offsetLeft == val && this.Y== (this.bodies[i] as HTMLElement).offsetTop){
-                    throw new Error('🐍 撞到自己了');
-                    break;
-                }
-            }
+
         }
 
         this.moveBody();
         this.head.style.left = val+'px';
+        this.checkConfic();
+
     }
 
     set Y(val:number){
@@ -54,16 +51,13 @@ class Snake{
             if(val==(this.bodies[1] as HTMLElement).offsetTop){
                 throw new Error('🐍 掉头了');
             }
-            for(let i = this.bodies.length-2;i>0;i--){
-                if((this.bodies[i] as HTMLElement).offsetTop == val && this.X== (this.bodies[i] as HTMLElement).offsetLeft){
-                    throw new Error('🐍 撞到自己了');
-                    break;
-                }
-            }
+
+
         }
 
         this.moveBody();
         this.head.style.top = val+'px';
+        this.checkConfic();
     }
 
     addbody(){
@@ -82,6 +76,15 @@ class Snake{
 
         }
 
+    }
+
+    checkConfic(){
+        for(let i = this.bodies.length-1;i>3;i--){
+            if((this.bodies[i] as HTMLElement).offsetTop == this.Y && this.X== (this.bodies[i] as HTMLElement).offsetLeft){
+                throw new Error('🐍 撞到自己了');
+                break;
+            }
+        }
     }
 
     refresh(){
