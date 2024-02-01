@@ -34,6 +34,7 @@ class GameController {
             // console.log(this.direction)
         } else {
             alert("invalid Key");
+            this.refresh();
         }
         // console.log(this)
 
@@ -115,12 +116,7 @@ class GameController {
         // console.log(this.snake.X)
 
         if(!this.isAlive){
-            this.snake.refresh();
-            this.scorePanel.refresh();
-            // this.snake.X=0;
-            // this.snake.Y=0;
-            this.isAlive=true;
-            this.direction="";
+            this.refresh()
         }
 
         setTimeout(this.run.bind(this), 300-(this.scorePanel.level-1)*30);
@@ -137,6 +133,15 @@ class GameController {
             this.snake.addbody()
             this.scorePanel.addScore()
         }
+    }
+
+    refresh(){
+        this.snake.refresh();
+        this.scorePanel.refresh();
+        // this.snake.X=0;
+        // this.snake.Y=0;
+        this.isAlive=true;
+        this.direction="";
     }
 
 }
