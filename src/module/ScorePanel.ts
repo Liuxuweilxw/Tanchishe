@@ -29,6 +29,13 @@ class ScorePanel {
 
     }
 
+    refresh(){
+        this.level=1;
+        this.score=0;
+        this.scoreEle.innerHTML = this.score + '';
+        this.levelEle.innerHTML = this.level + '';
+    }
+
 
 }
 

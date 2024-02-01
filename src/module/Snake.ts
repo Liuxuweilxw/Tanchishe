@@ -24,8 +24,21 @@ class Snake{
             return;
         }
         if(val<0 || val>290 ){
-            throw new Error('🐍撞墙了');
+            throw new Error(' 🐍 撞墙了');
         }
+        if(this.bodies.length>1){
+            if(val==(this.bodies[1] as HTMLElement).offsetLeft){
+                throw new Error('🐍 掉头了');
+            }
+            for(let i = this.bodies.length-2;i>0;i--){
+                if((this.bodies[i] as HTMLElement).offsetLeft == val && this.Y== (this.bodies[i] as HTMLElement).offsetTop){
+                    throw new Error('🐍 撞到自己了');
+                    break;
+                }
+            }
+        }
+
+        this.moveBody();
         this.head.style.left = val+'px';
     }
 
@@ -34,13 +47,48 @@ class Snake{
             return;
         }
         if(val<0 || val>290 ){
-            throw new Error('🐍撞墙了');
+            throw new Error(' 🐍 撞墙了');
         }
+
+        if(this.bodies.length>1){
+            if(val==(this.bodies[1] as HTMLElement).offsetTop){
+                throw new Error('🐍 掉头了');
+            }
+            for(let i = this.bodies.length-2;i>0;i--){
+                if((this.bodies[i] as HTMLElement).offsetTop == val && this.X== (this.bodies[i] as HTMLElement).offsetLeft){
+                    throw new Error('🐍 撞到自己了');
+                    break;
+                }
+            }
+        }
+
+        this.moveBody();
         this.head.style.top = val+'px';
     }
 
     addbody(){
-        this.element.insertAdjacentHTML("beforeend","<div></div>>");
+        this.element.insertAdjacentHTML("beforeend","<div></div>");
+        // (this.bodies[this.bodies.length-1] as HTMLElement).style.left = (this.bodies[this.bodies.length-2] as HTMLElement).offsetLeft+'px';
+        // (this.bodies[this.bodies.length-1] as HTMLElement).style.top = (this.bodies[this.bodies.length-2] as HTMLElement).offsetTop+'px';
+
+    }
+
+    moveBody(){
+        for(let i = this.bodies.length-1;i>0;i--){
+            let X = (this.bodies[i-1] as HTMLElement).offsetLeft;
+            let Y = (this.bodies[i-1] as HTMLElement).offsetTop;
+            (this.bodies[i] as HTMLElement).style.left = X+'px';
+            (this.bodies[i] as HTMLElement).style.top = Y+'px';
+
+        }
+
+    }
+
+    refresh(){
+        this.element.innerHTML = "<div></div>";
+        this.element = document.getElementById('snake') as HTMLElement;
+        this.head = document.querySelector('#snake>div') as HTMLElement;
+        this.bodies = this.element.getElementsByTagName('div') as HTMLCollection;
     }
 
 }

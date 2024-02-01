@@ -50,7 +50,7 @@ class GameController {
     run() {
         let X = this.snake.X;
         let Y = this.snake.Y;
-        // console.log(X)
+
         // if (this.snake.X == 0 && this.snake.Y == 0) {
         //     this.restart = false
         // }
@@ -94,25 +94,51 @@ class GameController {
                 break;
         }
         // if (this.restart != true) {
+
+
+        console.log(this.direction);
+        console.log("X",this.snake.X);
+        console.log("Y",this.snake.Y);
+        console.log("X-next",X);
+        console.log("Y-next",Y);
+        this.checkEat(X,Y);
         try {
             this.snake.X = X;
             this.snake.Y = Y;
-        }catch (e) {
-            alert("Game Over!");
+
+        }catch (e:any) {
+            alert(e.message + " Game Over!");
             this.isAlive=false;
         }
 
         // }
         // console.log(this.snake.X)
 
-        if(this.isAlive){
-            setTimeout(this.run.bind(this), 300-(this.scorePanel.level-1)*30);
-        }else{
-            this.snake.X=0;
-            this.snake.Y=0;
+        if(!this.isAlive){
+            this.snake.refresh();
+            this.scorePanel.refresh();
+            // this.snake.X=0;
+            // this.snake.Y=0;
+            this.isAlive=true;
+            this.direction="";
         }
 
+        setTimeout(this.run.bind(this), 300-(this.scorePanel.level-1)*30);
+
+
+
+
+
+
     }
+    checkEat(X:number,Y:number){
+        if(X==this.food.X && Y==this.food.Y){
+            this.food.change()
+            this.snake.addbody()
+            this.scorePanel.addScore()
+        }
+    }
+
 }
 
 export default GameController;
