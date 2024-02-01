@@ -1,10 +1,8 @@
-
-
 class ScorePanel {
-    private score: number = 0;
-    private level: number = 1;
-    private max_level: number;
-    private upScore: number;
+    score: number = 0;
+    level: number = 1;
+    max_level: number;
+    upScore: number;
     scoreEle: HTMLElement;
     levelEle: HTMLElement;
 
