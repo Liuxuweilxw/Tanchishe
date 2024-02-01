@@ -20,10 +20,22 @@ class Snake{
     }
 
     set X(val:number){
+        if(this.X==val){
+            return;
+        }
+        if(val<0 || val>290 ){
+            throw new Error('🐍撞墙了');
+        }
         this.head.style.left = val+'px';
     }
 
     set Y(val:number){
+        if(this.Y==val){
+            return;
+        }
+        if(val<0 || val>290 ){
+            throw new Error('🐍撞墙了');
+        }
         this.head.style.top = val+'px';
     }
 
